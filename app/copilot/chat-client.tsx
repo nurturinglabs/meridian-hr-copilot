@@ -106,8 +106,8 @@ export function ChatClient({ persona, region }: { persona: Persona; region: Regi
   return (
     <div className="flex flex-col h-[calc(100vh-220px)]">
       <div className="mb-3 text-sm text-[hsl(var(--muted-foreground))]">
-        Asking as <span className="text-violet-400 font-medium">{labelPersona(persona)}</span>
-        {' · '}region <span className="text-violet-400 font-medium">{region}</span>
+        Asking as <span className="text-emerald-400 font-medium">{labelPersona(persona)}</span>
+        {' · '}region <span className="text-emerald-400 font-medium">{region}</span>
       </div>
 
       <div
@@ -125,7 +125,7 @@ export function ChatClient({ persona, region }: { persona: Persona; region: Regi
                 <button
                   key={q}
                   onClick={() => ask(q)}
-                  className="text-sm rounded-full border border-[hsl(var(--border))] px-3 py-1.5 hover:border-violet-500 hover:text-violet-400 transition-colors"
+                  className="text-sm rounded-full border border-[hsl(var(--border))] px-3 py-1.5 hover:border-emerald-500 hover:text-emerald-400 transition-colors"
                 >
                   {q}
                 </button>
@@ -144,7 +144,7 @@ export function ChatClient({ persona, region }: { persona: Persona; region: Regi
 
         {pending && (
           <div className="flex items-center gap-2 text-sm text-[hsl(var(--muted-foreground))] fade-in">
-            <span className="inline-block size-2 rounded-full bg-violet-600 animate-pulse" />
+            <span className="inline-block size-2 rounded-full bg-emerald-600 animate-pulse" />
             retrieving + answering…
           </div>
         )}
@@ -162,12 +162,12 @@ export function ChatClient({ persona, region }: { persona: Persona; region: Regi
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask an HR question…"
           disabled={pending}
-          className="flex-1 rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/60"
+          className="flex-1 rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/60"
         />
         <button
           type="submit"
           disabled={pending || !input.trim()}
-          className="rounded-md bg-violet-600 hover:bg-violet-700 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2 text-sm font-medium text-white"
+          className="rounded-md bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2 text-sm font-medium text-white"
         >
           Ask
         </button>
@@ -190,7 +190,7 @@ function labelPersona(p: Persona): string {
 function UserBubble({ text }: { text: string }) {
   return (
     <div className="flex justify-end fade-in">
-      <div className="max-w-[80%] rounded-2xl bg-violet-500/15 border border-violet-500/30 px-4 py-2 text-sm">
+      <div className="max-w-[80%] rounded-2xl bg-emerald-500/15 border border-emerald-500/30 px-4 py-2 text-sm">
         {text}
       </div>
     </div>
@@ -221,7 +221,7 @@ function AssistantBubble({
                   chunk &&
                   onCite({ id: chunk.id, document_id: id, content: chunk.content })
                 }
-                className="text-xs font-mono rounded-full border border-violet-500/50 bg-violet-500/10 hover:bg-violet-500/20 px-2 py-1 text-violet-400"
+                className="text-xs font-mono rounded-full border border-emerald-500/50 bg-emerald-500/10 hover:bg-emerald-500/20 px-2 py-1 text-emerald-400"
               >
                 [{id}]
               </button>
@@ -262,7 +262,7 @@ function renderInline(text: string): React.ReactNode[] {
       out.push(<strong key={key++}>{tok.slice(2, -2)}</strong>)
     } else {
       out.push(
-        <span key={key++} className="font-mono text-violet-400">
+        <span key={key++} className="font-mono text-emerald-400">
           {tok}
         </span>,
       )
@@ -281,8 +281,8 @@ function Trace({
   onCite: (c: { id: string; content: string; document_id: string }) => void
 }) {
   return (
-    <details className="group rounded-lg border border-violet-500/30 bg-violet-500/5">
-      <summary className="cursor-pointer select-none list-none px-3 py-2 text-xs uppercase tracking-wider text-violet-400/90 flex items-center gap-2">
+    <details className="group rounded-lg border border-emerald-500/30 bg-emerald-500/5">
+      <summary className="cursor-pointer select-none list-none px-3 py-2 text-xs uppercase tracking-wider text-emerald-400/90 flex items-center gap-2">
         <span className="transition-transform group-open:rotate-90">▸</span>
         Trace
         <span className="text-[hsl(var(--muted-foreground))] normal-case tracking-normal">
@@ -292,13 +292,13 @@ function Trace({
       </summary>
       <div className="px-3 pb-3 pt-1 text-xs space-y-3">
         <section>
-          <div className="font-semibold text-violet-400/80 mb-1">Retrieved</div>
+          <div className="font-semibold text-emerald-400/80 mb-1">Retrieved</div>
           <ul className="space-y-1 font-mono">
             {m.chunks.map((c) => (
               <li key={c.id} className="flex items-center gap-2">
                 <button
                   onClick={() => onCite({ id: c.id, document_id: c.document_id, content: c.content })}
-                  className="text-violet-400 hover:underline"
+                  className="text-emerald-400 hover:underline"
                 >
                   [{c.document_id}]
                 </button>
@@ -313,7 +313,7 @@ function Trace({
           </ul>
         </section>
         <section>
-          <div className="font-semibold text-violet-400/80 mb-1">
+          <div className="font-semibold text-emerald-400/80 mb-1">
             Filtered out by governance
           </div>
           <ul className="space-y-1 font-mono">
@@ -362,7 +362,7 @@ function ChunkDialog({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-3">
-          <h3 className="font-mono text-sm text-violet-400">[{chunk.document_id}]</h3>
+          <h3 className="font-mono text-sm text-emerald-400">[{chunk.document_id}]</h3>
           <button
             onClick={onClose}
             className="text-xs text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"

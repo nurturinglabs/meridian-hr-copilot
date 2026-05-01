@@ -28,7 +28,7 @@ export function SiteHeader({
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
         <div className="flex items-baseline gap-3">
           <Link href="/copilot" className="text-lg font-semibold tracking-tight">
-            Meridian <span className="text-violet-400">HR Copilot</span>
+            Meridian <span className="text-emerald-400">HR Copilot</span>
           </Link>
         </div>
 
@@ -77,7 +77,7 @@ export function SiteHeader({
               className={[
                 'px-4 py-2 text-sm font-medium border-b-2 transition-colors',
                 active
-                  ? 'border-violet-500 text-violet-400'
+                  ? 'border-emerald-500 text-emerald-400'
                   : 'border-transparent text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]',
               ].join(' ')}
             >
@@ -110,7 +110,7 @@ function SelectControl({
         value={value}
         disabled={disabled}
         onChange={(e) => onChange(e.target.value)}
-        className="bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-md px-2 py-1.5 text-sm text-[hsl(var(--foreground))] focus:outline-none focus:ring-2 focus:ring-violet-500/60"
+        className="bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-md px-2 py-1.5 text-sm text-[hsl(var(--foreground))] focus:outline-none focus:ring-2 focus:ring-emerald-500/60"
       >
         {options.map((o) => (
           <option key={o.value} value={o.value} className="bg-[hsl(var(--card))]">

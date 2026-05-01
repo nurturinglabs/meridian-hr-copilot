@@ -12,8 +12,8 @@
     --muted-foreground: 220 8% 62%;    /* graphite secondary text */
     --border: 220 14% 22%;             /* hairline divider */
     --input: 220 14% 18%;
-    --ring: 258 90% 70%;               /* violet focus ring */
-    --accent: 258 90% 60%;             /* violet accent (violet-500) */
+    --ring: 158 64% 52%;               /* emerald-400 focus ring */
+    --accent: 160 84% 39%;             /* emerald-500 accent */
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 60%;
     --warn: 38 92% 60%;
