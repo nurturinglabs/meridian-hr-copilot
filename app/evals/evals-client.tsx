@@ -98,7 +98,7 @@ export function EvalsClient() {
       <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))]/40 p-8 text-center">
         <h2 className="text-xl font-semibold mb-2">No eval runs yet</h2>
         <p className="text-sm text-[hsl(var(--muted-foreground))]">
-          Run <code className="font-mono text-indigo-700">scripts/seed-evals.ts</code> to
+          Run <code className="font-mono text-violet-400">scripts/seed-evals.ts</code> to
           populate ~50 golden questions with precision / recall / faithfulness scores.
         </p>
       </div>
@@ -118,7 +118,7 @@ export function EvalsClient() {
       {/* Eval table */}
       <section className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))]/40 overflow-hidden">
         <header className="px-4 py-3 border-b border-[hsl(var(--border))]">
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-indigo-700/90">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-violet-400/90">
             Eval rows ({rows.length})
           </h3>
         </header>
@@ -155,10 +155,10 @@ export function EvalsClient() {
             </thead>
             <tbody>
               {sorted.map((r) => (
-                <tr key={r.id} className="border-t border-[hsl(var(--border))] hover:bg-indigo-600/5">
+                <tr key={r.id} className="border-t border-[hsl(var(--border))] hover:bg-violet-500/5">
                   <td className="px-3 py-2 font-mono">{r.persona}</td>
                   <td className="px-3 py-2 max-w-md truncate">{r.question}</td>
-                  <td className="px-3 py-2 font-mono text-indigo-700/80">
+                  <td className="px-3 py-2 font-mono text-violet-400/80">
                     {r.expected_doc_ids.join(', ')}
                   </td>
                   <td className="px-3 py-2 font-mono text-[hsl(var(--muted-foreground))]">
@@ -178,13 +178,13 @@ export function EvalsClient() {
       {docHealth && (
         <section className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))]/40 overflow-hidden">
           <header className="px-4 py-3 border-b border-[hsl(var(--border))]">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-indigo-700/90">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-violet-400/90">
               Content health
             </h3>
             <p className="text-xs text-[hsl(var(--muted-foreground))]">
               Retrieval count per doc across {rows.length} eval runs.
-              <span className="ml-2 text-red-700">never retrieved = stale</span>,
-              <span className="ml-2 text-amber-700">top quartile = candidate for splitting</span>
+              <span className="ml-2 text-red-300">never retrieved = stale</span>,
+              <span className="ml-2 text-amber-300">top quartile = candidate for splitting</span>
             </p>
           </header>
           <div className="overflow-x-auto">
@@ -207,12 +207,12 @@ export function EvalsClient() {
                       h.flag === 'over' && 'bg-amber-500/5',
                     )}
                   >
-                    <td className="px-3 py-2 font-mono text-indigo-700">{h.id}</td>
+                    <td className="px-3 py-2 font-mono text-violet-400">{h.id}</td>
                     <td className="px-3 py-2">{h.title}</td>
                     <td className="px-3 py-2 font-mono">{h.count}</td>
                     <td className="px-3 py-2">
-                      {h.flag === 'stale' && <span className="text-red-700">stale</span>}
-                      {h.flag === 'over' && <span className="text-amber-700">over-retrieved</span>}
+                      {h.flag === 'stale' && <span className="text-red-300">stale</span>}
+                      {h.flag === 'over' && <span className="text-amber-300">over-retrieved</span>}
                     </td>
                   </tr>
                 ))}
@@ -239,7 +239,7 @@ function Kpi({ label, value, integer }: { label: string; value: number; integer?
       <div className="text-[10px] uppercase tracking-wider text-[hsl(var(--muted-foreground))]">
         {label}
       </div>
-      <div className="text-2xl font-semibold text-indigo-700 mt-0.5">
+      <div className="text-2xl font-semibold text-violet-400 mt-0.5">
         {integer ? value : value.toFixed(2)}
       </div>
     </div>
@@ -269,7 +269,7 @@ function SortableTh({
     <th className="px-3 py-2 text-[10px] uppercase tracking-wider text-[hsl(var(--muted-foreground))] font-medium">
       <button
         onClick={onClick}
-        className={cn('flex items-center gap-1', active && 'text-indigo-700')}
+        className={cn('flex items-center gap-1', active && 'text-violet-400')}
       >
         {children} {active && <span>{asc ? '▲' : '▼'}</span>}
       </button>
@@ -279,6 +279,6 @@ function SortableTh({
 
 function Score({ n }: { n: number }) {
   const tone =
-    n < 0.5 ? 'text-red-700' : n < 0.8 ? 'text-amber-700' : 'text-emerald-700'
+    n < 0.5 ? 'text-red-300' : n < 0.8 ? 'text-amber-300' : 'text-emerald-300'
   return <td className={cn('px-3 py-2 font-mono', tone)}>{n.toFixed(2)}</td>
 }

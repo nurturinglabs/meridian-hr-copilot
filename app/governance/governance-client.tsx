@@ -90,7 +90,7 @@ export function GovernanceClient() {
       {/* LEFT: corpus browser */}
       <section className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))]/40 overflow-y-auto">
         <header className="px-4 py-3 border-b border-[hsl(var(--border))] sticky top-0 bg-[hsl(var(--card))]/90 backdrop-blur">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-indigo-700/90">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-violet-400/90">
             Corpus
           </h2>
           <p className="text-xs text-[hsl(var(--muted-foreground))]">
@@ -112,9 +112,9 @@ export function GovernanceClient() {
                         setTab('doc')
                       }}
                       className={cn(
-                        'w-full text-left rounded-md px-2 py-1.5 text-sm flex items-center justify-between gap-2 hover:bg-indigo-600/10',
-                        selectedId === d.id && 'bg-indigo-600/15 text-indigo-700',
-                        d.is_deprecated && 'line-through text-red-700/80',
+                        'w-full text-left rounded-md px-2 py-1.5 text-sm flex items-center justify-between gap-2 hover:bg-violet-500/10',
+                        selectedId === d.id && 'bg-violet-500/15 text-violet-400',
+                        d.is_deprecated && 'line-through text-red-300/80',
                       )}
                     >
                       <span className="truncate">{d.title}</span>
@@ -148,7 +148,7 @@ export function GovernanceClient() {
           </TabBtn>
           <TabBtn active={tab === 'audit'} onClick={() => setTab('audit')}>
             Audit Log
-            <span className="ml-2 rounded bg-indigo-600/20 text-indigo-700 text-[10px] px-1.5 py-0.5">
+            <span className="ml-2 rounded bg-violet-500/20 text-violet-400 text-[10px] px-1.5 py-0.5">
               {audit.length}
             </span>
           </TabBtn>
@@ -194,7 +194,7 @@ function TabBtn({
       className={cn(
         'px-3 py-2 text-xs uppercase tracking-wider border-b-2 -mb-px',
         active
-          ? 'border-indigo-700 text-indigo-700'
+          ? 'border-violet-500 text-violet-400'
           : 'border-transparent text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]',
       )}
     >
@@ -212,9 +212,9 @@ function Badge({
 }) {
   const styles = {
     muted: 'bg-[hsl(var(--muted))]/60 text-[hsl(var(--muted-foreground))]',
-    danger: 'bg-red-500/15 text-red-700',
-    warn: 'bg-amber-500/15 text-amber-700',
-    info: 'bg-blue-500/15 text-blue-700',
+    danger: 'bg-red-500/15 text-red-300',
+    warn: 'bg-amber-500/15 text-amber-300',
+    info: 'bg-blue-500/15 text-blue-300',
   }[tone]
   return (
     <span className={cn('rounded px-1.5 py-0.5 text-[10px] uppercase tracking-wider', styles)}>
@@ -238,7 +238,7 @@ function DocDetail({ doc }: { doc: DocRow | null }) {
           {doc.title}
           {doc.is_deprecated && <Badge tone="danger">deprecated</Badge>}
         </h3>
-        <p className="font-mono text-xs text-indigo-700">{doc.id}</p>
+        <p className="font-mono text-xs text-violet-400">{doc.id}</p>
       </div>
 
       <div className="grid grid-cols-2 gap-2 text-xs">
@@ -254,7 +254,7 @@ function DocDetail({ doc }: { doc: DocRow | null }) {
       </div>
 
       <div>
-        <div className="text-xs uppercase tracking-wider text-indigo-700/80 mb-1">
+        <div className="text-xs uppercase tracking-wider text-violet-400/80 mb-1">
           Raw markdown
         </div>
         <pre className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-3 text-xs whitespace-pre-wrap font-mono leading-relaxed">
@@ -296,8 +296,8 @@ function AuditList({ rows }: { rows: AuditRow[] }) {
 function AuditItem({ row }: { row: AuditRow }) {
   return (
     <details className="group">
-      <summary className="cursor-pointer list-none px-4 py-3 hover:bg-indigo-600/5 flex items-center gap-3">
-        <span className="transition-transform group-open:rotate-90 text-indigo-700/60">▸</span>
+      <summary className="cursor-pointer list-none px-4 py-3 hover:bg-violet-500/5 flex items-center gap-3">
+        <span className="transition-transform group-open:rotate-90 text-violet-400/60">▸</span>
         <span className="text-xs font-mono text-[hsl(var(--muted-foreground))] w-32 shrink-0">
           {new Date(row.ts).toLocaleTimeString()}
         </span>
@@ -313,17 +313,17 @@ function AuditItem({ row }: { row: AuditRow }) {
           {row.latency_ms}ms
         </span>
       </summary>
-      <div className="px-12 py-3 text-xs space-y-3 bg-indigo-600/5 border-t border-[hsl(var(--border))]">
+      <div className="px-12 py-3 text-xs space-y-3 bg-violet-500/5 border-t border-[hsl(var(--border))]">
         {row.answer && (
           <section>
-            <div className="font-semibold text-indigo-700/80 mb-1">Answer</div>
+            <div className="font-semibold text-violet-400/80 mb-1">Answer</div>
             <div className="rounded border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-2 whitespace-pre-wrap">
               {row.answer}
             </div>
           </section>
         )}
         <section>
-          <div className="font-semibold text-indigo-700/80 mb-1">
+          <div className="font-semibold text-violet-400/80 mb-1">
             Citations
           </div>
           <div className="font-mono">
@@ -331,7 +331,7 @@ function AuditItem({ row }: { row: AuditRow }) {
               <span className="text-[hsl(var(--muted-foreground))]">none</span>
             ) : (
               row.citations.map((c) => (
-                <span key={c} className="mr-2 text-indigo-700">
+                <span key={c} className="mr-2 text-violet-400">
                   [{c}]
                 </span>
               ))
@@ -339,7 +339,7 @@ function AuditItem({ row }: { row: AuditRow }) {
           </div>
         </section>
         <section>
-          <div className="font-semibold text-indigo-700/80 mb-1">
+          <div className="font-semibold text-violet-400/80 mb-1">
             Filtered out ({row.filtered_out_chunk_ids.length})
           </div>
           <ul className="font-mono space-y-0.5">

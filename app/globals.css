@@ -4,19 +4,19 @@
 
 @layer base {
   :root {
-    --background: 30 25% 97%;          /* warm off-white, paper-cream */
-    --foreground: 220 18% 11%;         /* deep ink — slightly cool near-black */
-    --card: 0 0% 100%;                 /* pure white card layer above the cream */
-    --card-foreground: 220 18% 11%;
-    --muted: 220 14% 95%;              /* very subtle cool gray fill */
-    --muted-foreground: 220 9% 38%;    /* graphite secondary text */
-    --border: 220 14% 88%;             /* hairline dividers */
-    --input: 220 14% 90%;
-    --ring: 234 64% 50%;               /* indigo focus ring */
-    --accent: 234 64% 35%;              /* deep indigo accent */
+    --background: 220 18% 7%;          /* deep graphite */
+    --foreground: 210 20% 94%;         /* warm off-white ink */
+    --card: 220 14% 12%;               /* lifted surface — paper on graphite */
+    --card-foreground: 210 20% 94%;
+    --muted: 220 14% 18%;              /* subtle inset fill */
+    --muted-foreground: 220 8% 62%;    /* graphite secondary text */
+    --border: 220 14% 22%;             /* hairline divider */
+    --input: 220 14% 18%;
+    --ring: 258 90% 70%;               /* violet focus ring */
+    --accent: 258 90% 60%;             /* violet accent (violet-500) */
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 72% 51%;
-    --warn: 38 92% 50%;
+    --destructive: 0 72% 60%;
+    --warn: 38 92% 60%;
     --radius: 0.5rem;
   }
 }
