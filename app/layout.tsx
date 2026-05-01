@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import { SiteHeader } from '@/components/site-header'
-import { getPersona, getRegion } from '@/lib/personas'
 import './globals.css'
 
 const geistSans = localFont({
@@ -24,15 +23,12 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const persona = getPersona()
-  const region = getRegion()
-
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <SiteHeader persona={persona} region={region} />
+        <SiteHeader />
         <main className="flex-1 max-w-7xl w-full mx-auto px-6 py-6">
           {children}
         </main>

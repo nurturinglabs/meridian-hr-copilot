@@ -1,6 +1,8 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useTransition } from 'react'
+import { useRouter } from 'next/navigation'
+import { setPersonaAction, setRegionAction } from '@/app/actions'
 import { cn } from '@/lib/utils'
 import type { Persona, Region } from '@/lib/personas'
 
@@ -39,11 +41,24 @@ const EXAMPLES = [
   "What's the investigation process for harassment?",
 ]
 
+const PERSONA_OPTIONS: { value: Persona; label: string }[] = [
+  { value: 'employee', label: 'Employee' },
+  { value: 'hr_admin', label: 'HR Admin' },
+  { value: 'executive', label: 'Executive' },
+]
+const REGION_OPTIONS: { value: Region; label: string }[] = [
+  { value: 'ALL', label: 'ALL' },
+  { value: 'WI', label: 'WI' },
+  { value: 'NY', label: 'NY' },
+]
+
 export function ChatClient({ persona, region }: { persona: Persona; region: Region }) {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [pending, setPending] = useState(false)
   const [openChunk, setOpenChunk] = useState<{ id: string; content: string; document_id: string } | null>(null)
+  const [filterPending, startTransition] = useTransition()
+  const router = useRouter()
   const listRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -105,9 +120,32 @@ export function ChatClient({ persona, region }: { persona: Persona; region: Regi
 
   return (
     <div className="flex flex-col h-[calc(100vh-220px)]">
-      <div className="mb-3 text-sm text-[hsl(var(--muted-foreground))]">
-        Asking as <span className="text-emerald-400 font-medium">{labelPersona(persona)}</span>
-        {' · '}region <span className="text-emerald-400 font-medium">{region}</span>
+      <div className="mb-3 text-sm text-[hsl(var(--muted-foreground))] flex items-center gap-1.5 flex-wrap">
+        <span>Asking as</span>
+        <InlineSelect
+          value={persona}
+          options={PERSONA_OPTIONS}
+          disabled={filterPending}
+          onChange={(v) =>
+            startTransition(async () => {
+              await setPersonaAction(v as Persona)
+              router.refresh()
+            })
+          }
+        />
+        <span>·</span>
+        <span>region</span>
+        <InlineSelect
+          value={region}
+          options={REGION_OPTIONS}
+          disabled={filterPending}
+          onChange={(v) =>
+            startTransition(async () => {
+              await setRegionAction(v as Region)
+              router.refresh()
+            })
+          }
+        />
       </div>
 
       <div
@@ -183,8 +221,36 @@ export function ChatClient({ persona, region }: { persona: Persona; region: Regi
   )
 }
 
-function labelPersona(p: Persona): string {
-  return p === 'employee' ? 'Employee' : p === 'hr_admin' ? 'HR Admin' : 'Executive'
+function InlineSelect<T extends string>({
+  value,
+  options,
+  disabled,
+  onChange,
+}: {
+  value: T
+  options: { value: T; label: string }[]
+  disabled?: boolean
+  onChange: (v: T) => void
+}) {
+  return (
+    <span className="relative inline-flex">
+      <select
+        value={value}
+        disabled={disabled}
+        onChange={(e) => onChange(e.target.value as T)}
+        className="appearance-none bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded px-2 pr-6 py-0.5 text-sm font-medium text-emerald-400 hover:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/60 cursor-pointer disabled:opacity-50"
+      >
+        {options.map((o) => (
+          <option key={o.value} value={o.value} className="bg-[hsl(var(--card))] text-[hsl(var(--foreground))]">
+            {o.label}
+          </option>
+        ))}
+      </select>
+      <span className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 text-[10px] text-[hsl(var(--muted-foreground))]">
+        ▾
+      </span>
+    </span>
+  )
 }
 
 function UserBubble({ text }: { text: string }) {
