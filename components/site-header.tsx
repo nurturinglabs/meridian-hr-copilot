@@ -7,6 +7,8 @@ const TABS = [
   { href: '/copilot', label: 'Copilot' },
   { href: '/governance', label: 'Governance' },
   { href: '/evals', label: 'Evals' },
+  { href: '/architecture', label: 'Architecture' },
+  { href: '/flow', label: 'Flow' },
 ] as const
 
 export function SiteHeader() {
