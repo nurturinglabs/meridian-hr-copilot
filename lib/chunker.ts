@@ -86,7 +86,7 @@ function splitOnParagraphs(body: string, maxTokens: number): string[] {
 // PRD §6.1: split on h2 (then h3 inside oversized sections), merge sections under
 // 100 tokens with the next sibling, split sections over 800 tokens on paragraphs.
 // Each chunk is prefixed with its section heading for retrieval context.
-export function chunkDocument(markdown: string, _docId: string): Chunk[] {
+export function chunkDocument(markdown: string): Chunk[] {
   const sections = splitH2(markdown)
 
   const expanded: Section[] = []

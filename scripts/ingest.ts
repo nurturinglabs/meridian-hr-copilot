@@ -79,7 +79,7 @@ async function main() {
     const docIns = await sb.from('mhr_documents').insert(docRow)
     if (docIns.error) throw new Error(`insert ${fm.doc_id}: ${docIns.error.message}`)
 
-    const chunks = chunkDocument(body, fm.doc_id)
+    const chunks = chunkDocument(body)
     const vectors = await embed(chunks.map((c) => c.content))
 
     const chunkRows = chunks.map((c, i) => ({

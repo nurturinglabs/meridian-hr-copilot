@@ -14,7 +14,7 @@ async function main() {
   console.log('=== Chunker ===')
   const policyRaw = fs.readFileSync(path.join(corpusDir, 'pol-parental-leave-v2.md'), 'utf8')
   const { content: policyBody } = matter(policyRaw)
-  const chunks = chunkDocument(policyBody, 'pol-parental-leave-v2')
+  const chunks = chunkDocument(policyBody)
   console.log(`chunks: ${chunks.length}`)
   console.log('--- first chunk ---')
   console.log(chunks[0].content)
