@@ -1,0 +1,107 @@
+<svg width="100%" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="flow-title flow-desc">
+  <title id="flow-title">Meridian HR Copilot — Request Flow</title>
+  <desc id="flow-desc">Eight-step trace of one HR question: embed, RLS-filtered search, PII redact, generate, faithfulness check, audit log, render. Top row left-to-right then bottom row right-to-left.</desc>
+
+  <defs>
+    <marker id="f-arrow-mute" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#475569" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="f-arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#10B981" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      .step-num   { fill: #10B981; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; }
+      .step-title { fill: #F8FAFC; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif; font-size: 14px; font-weight: 600; }
+      .step-sub   { fill: #94A3B8; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif; font-size: 11.5px; }
+      .step-box        { fill: #0F1B2D; stroke: #1F2A3D; stroke-width: 1; }
+      .step-box-accent { fill: #0F1B2D; stroke: #10B981; stroke-width: 1.25; }
+      .footer-text     { fill: #64748B; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif; font-size: 11.5px; font-style: italic; }
+    </style>
+  </defs>
+
+  <!-- ROW 1: STEPS 1 → 4 (left to right) -->
+  <!-- Step 1: User question -->
+  <rect class="step-box" x="40" y="50" width="265" height="100" rx="10"/>
+  <text class="step-num"   x="60"  y="74">STEP 01</text>
+  <text class="step-title" x="60"  y="98">User asks</text>
+  <text class="step-sub"   x="60"  y="120">"How much parental leave</text>
+  <text class="step-sub"   x="60"  y="135">do I get?" · persona: employee</text>
+
+  <line x1="305" y1="100" x2="333" y2="100" stroke="#475569" stroke-width="1.5" marker-end="url(#f-arrow-mute)"/>
+
+  <!-- Step 2: Embed -->
+  <rect class="step-box" x="335" y="50" width="265" height="100" rx="10"/>
+  <text class="step-num"   x="355" y="74">STEP 02</text>
+  <text class="step-title" x="355" y="98">Embed query</text>
+  <text class="step-sub"   x="355" y="120">OpenAI text-embedding-3-small</text>
+  <text class="step-sub"   x="355" y="135">→ 1536-dim vector</text>
+
+  <line x1="600" y1="100" x2="628" y2="100" stroke="#475569" stroke-width="1.5" marker-end="url(#f-arrow-mute)"/>
+
+  <!-- Step 3: RLS search (HIGHLIGHTED) -->
+  <rect class="step-box-accent" x="630" y="50" width="265" height="100" rx="10"/>
+  <text class="step-num"   x="650" y="74">STEP 03 · RLS</text>
+  <text class="step-title" x="650" y="98">Vector search with RBAC</text>
+  <text class="step-sub"   x="650" y="120">SET LOCAL app.mhr_persona</text>
+  <text class="step-sub"   x="650" y="135">Postgres refuses blocked rows</text>
+
+  <line x1="895" y1="100" x2="923" y2="100" stroke="#10B981" stroke-width="1.5" marker-end="url(#f-arrow-accent)"/>
+
+  <!-- Step 4: PII redact -->
+  <rect class="step-box-accent" x="925" y="50" width="235" height="100" rx="10"/>
+  <text class="step-num"   x="945" y="74">STEP 04 · PII</text>
+  <text class="step-title" x="945" y="98">Redact at retrieval</text>
+  <text class="step-sub"   x="945" y="120">SSN · DOB · account · CC</text>
+  <text class="step-sub"   x="945" y="135">policy varies by persona</text>
+
+  <!-- TURN: down then left -->
+  <path d="M 1042 150 L 1042 215 L 1042 215" fill="none" stroke="#475569" stroke-width="1.5"/>
+  <line x1="1042" y1="215" x2="1042" y2="240" stroke="#475569" stroke-width="1.5" marker-end="url(#f-arrow-mute)"/>
+
+  <!-- ROW 2: STEPS 5 → 8 (right to left) -->
+  <!-- Step 5: Generate -->
+  <rect class="step-box" x="925" y="240" width="235" height="100" rx="10"/>
+  <text class="step-num"   x="945" y="264">STEP 05</text>
+  <text class="step-title" x="945" y="288">Generate answer</text>
+  <text class="step-sub"   x="945" y="310">Claude Sonnet 4.5 · cite chunks</text>
+  <text class="step-sub"   x="945" y="325">refuse if no source</text>
+
+  <line x1="924" y1="290" x2="897" y2="290" stroke="#475569" stroke-width="1.5" marker-end="url(#f-arrow-mute)"/>
+
+  <!-- Step 6: Faithfulness -->
+  <rect class="step-box" x="630" y="240" width="265" height="100" rx="10"/>
+  <text class="step-num"   x="650" y="264">STEP 06</text>
+  <text class="step-title" x="650" y="288">Faithfulness check</text>
+  <text class="step-sub"   x="650" y="310">Second LLM pass · score 0–1</text>
+  <text class="step-sub"   x="650" y="325">does answer follow from chunks</text>
+
+  <line x1="629" y1="290" x2="601" y2="290" stroke="#475569" stroke-width="1.5" marker-end="url(#f-arrow-mute)"/>
+
+  <!-- Step 7: Audit log (HIGHLIGHTED) -->
+  <rect class="step-box-accent" x="335" y="240" width="265" height="100" rx="10"/>
+  <text class="step-num"   x="355" y="264">STEP 07 · AUDIT</text>
+  <text class="step-title" x="355" y="288">Write to mhr_audit_log</text>
+  <text class="step-sub"   x="355" y="310">retrieved · filtered-out · reasons</text>
+  <text class="step-sub"   x="355" y="325">faithfulness · latency · PII count</text>
+
+  <line x1="334" y1="290" x2="306" y2="290" stroke="#10B981" stroke-width="1.5" marker-end="url(#f-arrow-accent)"/>
+
+  <!-- Step 8: Render -->
+  <rect class="step-box" x="40" y="240" width="265" height="100" rx="10"/>
+  <text class="step-num"   x="60"  y="264">STEP 08</text>
+  <text class="step-title" x="60"  y="288">Render to user</text>
+  <text class="step-sub"   x="60"  y="310">answer + citation pills</text>
+  <text class="step-sub"   x="60"  y="325">trace panel for inspection</text>
+
+  <!-- TIMING / FOOTER -->
+  <line x1="60" y1="400" x2="1160" y2="400" stroke="#1F2A3D" stroke-width="1"/>
+  <text class="step-num" x="60" y="430">END TO END</text>
+  <text class="step-sub" x="60" y="452">Typical latency 6–10 seconds · faithfulness pass dominates</text>
+  <text class="step-sub" x="60" y="470">In production: stream from step 5, run faithfulness async, sample for cost</text>
+
+  <text class="step-num" x="630" y="430">EVERY STEP IS LOGGED</text>
+  <text class="step-sub" x="630" y="452">Audit row captures retrieved chunks, filtered chunks with reasons,</text>
+  <text class="step-sub" x="630" y="470">PII redaction count, faithfulness score, and full latency</text>
+
+  <text class="footer-text" x="60" y="540">Same query, three personas → three different result sets, all governed at the data layer.</text>
+</svg>
